@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  prospects-flow-service:
+    build: .
+    container_name: prospects-flow-service
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+      - GOOGLE_PLACE_API_KEY=${GOOGLE_PLACE_API_KEY}
+      - ENV=production
+      - OLLAMA_URL=http://127.0.0.1:11434/api/generate
+    volumes:
+      - ./logs:/app/logs
+    restart: unless-stopped
+    networks:
+      - prospects-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Service Ollama (optionnel - si vous voulez l'inclure dans le même compose)
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama-service
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+    networks:
+      - prospects-network
+    profiles:
+      - ollama
+
+networks:
+  prospects-network:
+    driver: bridge
+
+volumes:
+  ollama_data:
