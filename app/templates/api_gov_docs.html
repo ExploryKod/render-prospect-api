@@ -1,0 +1,258 @@
+{% extends "base.html" %}
+
+{% block title %}Documentation API - Prospects Flow Service{% endblock %}
+
+{% block content %}
+<div class="row">
+    
+    <!-- Endpoints détaillés -->
+    <div class="row">
+        <div class="col-12">
+
+            <!-- Endpoint: /health -->
+            <div class="api-endpoint" id="health">
+                <span class="method-get">GET</span>
+                <strong>/health</strong>
+                <p>Vérifie le statut de santé du service.</p>
+                <div class="code-block">
+                    <pre>
+Réponse 200 :
+{
+  "status": "healthy",
+  "service": "prospects-flow-service"
+}
+                    </pre>
+                </div>
+            </div>
+
+            <!-- Endpoint: /gov_places/enterprises/search -->
+            <div class="api-endpoint" id="search-enterprises">
+                <span class="method-get">GET</span>
+                <strong>/gov_places/enterprises/search</strong>
+                <p>Recherche des entreprises françaises selon différents critères.</p>
+                <table class="table table-bordered parameter-table">
+                    <thead>
+                        <tr>
+                            <th>Paramètre</th>
+                            <th>Type</th>
+                            <th>Requis</th>
+                            <th>Description</th>
+                            <th>Exemple</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>q</td><td>string</td><td>Oui</td><td>Terme de recherche</td><td>restaurant</td></tr>
+                        <tr><td>code_postal</td><td>string</td><td>Non</td><td>Code postal</td><td>75001</td></tr>
+                        <tr><td>code_naf</td><td>string</td><td>Non</td><td>Code NAF</td><td>47.11Z</td></tr>
+                        <tr><td>effectif_min</td><td>int</td><td>Non</td><td>Effectif minimum</td><td>10</td></tr>
+                        <tr><td>effectif_max</td><td>int</td><td>Non</td><td>Effectif maximum</td><td>100</td></tr>
+                        <tr><td>entreprises_individuelles</td><td>bool</td><td>Non</td><td>Entreprises individuelles uniquement</td><td>true</td></tr>
+                    </tbody>
+                </table>
+                <div class="code-block">
+                    <pre>
+Exemple :
+GET /gov_places/enterprises/search?q=restaurant&code_postal=75001&effectif_min=10
+
+Réponse 200 :
+{
+  "query": "restaurant",
+  "filters_applied": {
+    "code_postal": "75001",
+    "effectif_min": "10"
+  },
+  "total_results": 25,
+  "timestamp": "2024-01-15T10:30:00.000Z",
+  "results": [
+    {
+      "denomination": "LE PETIT BISTROT",
+      "siren": "123456789",
+      "siret": "12345678900012",
+      "code_naf": "56.10A",
+      "effectif": "10-19",
+      "adresse": {
+        "numero": "15",
+        "voie": "RUE DE RIVOLI",
+        "code_postal": "75001",
+        "commune": "PARIS"
+      }
+    }
+  ]
+}
+                    </pre>
+                </div>
+            </div>
+
+            <!-- Endpoint: /gov_places/enterprises/{siren} -->
+            <div class="api-endpoint" id="enterprise-details">
+                <span class="method-get">GET</span>
+                <strong>/gov_places/enterprises/{siren}</strong>
+                <p>Obtenir les informations détaillées d'une entreprise par son numéro SIREN.</p>
+                <table class="table table-bordered parameter-table">
+                    <thead>
+                        <tr>
+                            <th>Paramètre</th>
+                            <th>Type</th>
+                            <th>Requis</th>
+                            <th>Description</th>
+                            <th>Exemple</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>siren</td><td>string</td><td>Oui</td><td>Numéro SIREN (9 chiffres)</td><td>380129867</td></tr>
+                    </tbody>
+                </table>
+                <div class="code-block">
+                    <pre>
+Exemple :
+GET /gov_places/enterprises/380129867
+
+Réponse 200 :
+{
+  "siren": "380129867",
+  "timestamp": "2024-01-15T10:30:00.000Z",
+  "enterprise": {
+    "denomination": "ORANGE",
+    "siren": "380129867",
+    "siret": "38012986700034",
+    "code_naf": "61.20Z",
+    "libelle_naf": "Télécommunications filaires",
+    "effectif": "10000+",
+    "date_creation": "1987-12-31",
+    "adresse": {
+      "numero": "78",
+      "voie": "RUE OLIVIER DE SERRES",
+      "code_postal": "75015",
+      "commune": "PARIS",
+      "departement": "75",
+      "region": "ILE-DE-FRANCE"
+    }
+  }
+}
+                    </pre>
+                </div>
+            </div>
+
+            <!-- Endpoint: /gov_places/enterprises/geographic -->
+            <div class="api-endpoint" id="geographic-search">
+                <span class="method-get">GET</span>
+                <strong>/gov_places/enterprises/geographic</strong>
+                <p>Recherche d'entreprises dans une zone géographique spécifique.</p>
+                <table class="table table-bordered parameter-table">
+                    <thead>
+                        <tr>
+                            <th>Paramètre</th>
+                            <th>Type</th>
+                            <th>Requis</th>
+                            <th>Description</th>
+                            <th>Exemple</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>lat</td><td>float</td><td>Oui</td><td>Latitude</td><td>48.8566</td></tr>
+                        <tr><td>lon</td><td>float</td><td>Oui</td><td>Longitude</td><td>2.3522</td></tr>
+                        <tr><td>radius</td><td>int</td><td>Non</td><td>Rayon en mètres (défaut: 1000)</td><td>2000</td></tr>
+                    </tbody>
+                </table>
+                <div class="code-block">
+                    <pre>
+Exemple :
+GET /gov_places/enterprises/geographic?lat=48.8566&lon=2.3522&radius=2000
+
+Réponse 200 :
+{
+  "location": {
+    "lat": "48.8566",
+    "lon": "2.3522",
+    "radius": "2000"
+  },
+  "total_results": 45,
+  "timestamp": "2024-01-15T10:30:00.000Z",
+  "results": [
+    {
+      "denomination": "CAFE DE FLORE",
+      "siren": "123456789",
+      "distance": 150,
+      "adresse": {
+        "voie": "BOULEVARD SAINT-GERMAIN",
+        "code_postal": "75006",
+        "commune": "PARIS"
+      }
+    }
+  ]
+}
+                    </pre>
+                </div>
+            </div>
+
+            <!-- Endpoint: /google_places/search -->
+            <div class="api-endpoint" id="google-places">
+                <span class="method-get">GET</span>
+                <strong>/google_places/search</strong>
+                <p>Recherche de lieux via l'API Google Places.</p>
+                <table class="table table-bordered parameter-table">
+                    <thead>
+                        <tr>
+                            <th>Paramètre</th>
+                            <th>Type</th>
+                            <th>Requis</th>
+                            <th>Description</th>
+                            <th>Exemple</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>query</td><td>string</td><td>Oui</td><td>Terme de recherche</td><td>restaurant</td></tr>
+                        <tr><td>location</td><td>string</td><td>Non</td><td>Coordonnées lat,lng</td><td>48.8566,2.3522</td></tr>
+                        <tr><td>radius</td><td>int</td><td>Non</td><td>Rayon en mètres</td><td>5000</td></tr>
+                        <tr><td>type</td><td>string</td><td>Non</td><td>Type de lieu</td><td>restaurant</td></tr>
+                    </tbody>
+                </table>
+                <div class="code-block">
+                    <pre>
+Exemple :
+GET /google_places/search?query=restaurant&location=48.8566,2.3522&radius=5000
+
+Réponse 200 :
+{
+  "status": "OK",
+  "results": [
+    {
+      "place_id": "ChIJN1t_tDeuEmsRUsoyG83frY4",
+      "name": "Le Petit Bistrot",
+      "formatted_address": "15 Rue de Rivoli, 75001 Paris, France",
+      "geometry": {
+        "location": {
+          "lat": 48.8566,
+          "lng": 2.3522
+        }
+      },
+      "types": ["restaurant", "food", "establishment"]
+    }
+  ]
+}
+                    </pre>
+                </div>
+            </div>
+
+            <!-- Endpoint: /llm/health -->
+            <div class="api-endpoint" id="llm-health">
+                <span class="method-get">GET</span>
+                <strong>/llm/health</strong>
+                <p>Vérifie la santé du service LLM.</p>
+                <div class="code-block">
+                    <pre>
+Réponse 200 :
+{
+  "status": "healthy",
+  "service": "llm-service"
+}
+                    </pre>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div> 
+
+{% endblock %} 
+

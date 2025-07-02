@@ -1,138 +1,114 @@
-# API - PROSPECT FLOX
+# Service de Flux de Prospects - Application de Création de Tournées Commerciales avec Agents IA
 
-Avec `/<service>-places`:
-Vous pouvez récupérer des data de diverses API publique et Google ici pour créer des parcours autour d'un périmètre donnée.
+## Vue d'ensemble
 
-Avec `llm/`
-Vous avez accés à Llama2 : vous générez des prompts et récupérer les résultats en fonction de vos choix.
+Le Service de Flux de Prospects est une application web moderne conçue pour créer et optimiser des tournées commerciales intelligentes en utilisant l'intelligence artificielle. L'application intègre plusieurs sources de données pour identifier les meilleurs prospects et optimiser les déplacements commerciaux.
 
-Cette application Flask utilise des Blueprints pour organiser le code et est configurée pour fonctionner en production avec Docker et Gunicorn.
+## Fonctionnalités principales
 
-## Technologies
+- 🔍 **Recherche d'entreprises françaises** - Intégration avec l'API gouvernementale française
+- 🌍 **Géolocalisation avancée** - Intégration Google Places pour la localisation
+- 🤖 **Intelligence artificielle** - Services LLM pour l'analyse et la qualification des prospects
+- 📊 **Optimisation de tournées** - Algorithmes d'optimisation pour maximiser l'efficacité
+- 🎨 **Interface moderne** - Interface utilisateur responsive avec Bootstrap 5
 
-- **Flask** : Framework web principal
-- **Blueprints** : Organisation modulaire du code (`google_places`, `llm`)
-- **Gunicorn** : Serveur WSGI pour la production
-- **Docker** : Conteneurisation
-- **Docker Compose** : Orchestration des services
+## Technologies utilisées
 
-## Prérequis
+- **Backend :** Flask (Python)
+- **Frontend :** HTML5, CSS3, JavaScript, Bootstrap 5
+- **APIs :** Google Places API, API Recherche d'Entreprises (gouvernement français)
+- **Templates :** Jinja2
+- **Déploiement :** Docker, Gunicorn
 
-- Docker et Docker Compose installés
-- Ou un serveur qui prend en charge gunicorn, Flask et python 3.11 
-- Variable d'environnement `GOOGLE_PLACE_API_KEY` configurée acec votre clé Google sur Google Place API
+## Installation et démarrage
 
-## Déploiement
+### Prérequis
 
-### 1. Configuration des variables d'environnement
+- Python 3.8+
+- pip
+- Git
 
-Créez un fichier `.env` à la racine du projet :
+### Installation
+
+1. **Cloner le repository**
+```bash
+git clone <repository-url>
+cd prospects-flow-service
+```
+
+2. **Créer un environnement virtuel**
+```bash
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+# ou
+venv\Scripts\activate  # Windows
+```
+
+3. **Installer les dépendances**
+```bash
+pip install -r requirements.txt
+```
+
+4. **Configurer les variables d'environnement**
+```bash
+# Créer un fichier .env
+FLASK_PORT=5000
+FLASK_HOST=0.0.0.0
+FLASK_DEBUG=True
+```
+
+### Démarrage
 
 ```bash
-GOOGLE_PLACE_API_KEY=votre_clé_api_google
-ENV=production
-OLLAMA_URL=http://127.0.0.1:11434/api/generate
+# Port par défaut (5000)
+./venv/bin/python run.py
+
+# Port personnalisé
+./venv/bin/python run.py --port 8080
+
+# Avec variables d'environnement
+FLASK_PORT=9000 ./venv/bin/python run.py
 ```
 
-### 2. Construction et démarrage
+## API Documentation
 
+### Points de terminaison principaux
+
+| Endpoint | Méthode | Description |
+|----------|---------|-------------|
+| `/` | GET | Page d'accueil |
+| `/health` | GET | Vérification de santé |
+| `/gov_places/enterprises/search` | GET | Recherche d'entreprises françaises |
+| `/gov_places/enterprises/{siren}` | GET | Détails d'une entreprise par SIREN |
+| `/gov_places/enterprises/geographic` | GET | Recherche géographique d'entreprises |
+| `/google_places/search` | GET | Recherche de lieux avec Google Places |
+| `/llm/health` | GET | Santé du service LLM |
+
+### Exemples d'utilisation
+
+#### Recherche d'entreprises
 ```bash
-# Construire l'image
-docker-compose build
+# Recherche de restaurants à Paris
+curl "http://localhost:5000/gov_places/enterprises/search?q=restaurant&code_postal=75001&effectif_min=10"
 
-# Démarrer les services
-docker-compose up -d
-
-# Voir les logs
-docker-compose logs -f prospects-flow-service
+# Recherche d'entreprises technologiques
+curl "http://localhost:5000/gov_places/enterprises/search?q=informatique&code_naf=62.01Z"
 ```
 
-### 3. Démarrage avec Ollama (optionnel)
-
-Si vous voulez inclure Ollama dans le même compose :
-
+#### Recherche géographique
 ```bash
-docker-compose --profile ollama up -d
+# Recherche autour de la Tour Eiffel
+curl "http://localhost:5000/gov_places/enterprises/geographic?lat=48.8584&lon=2.2945&radius=2000"
 ```
 
-## Structure des Blueprints
-
-```
-app/
-├── __init__.py          # Factory pattern pour Flask
-├── google_places/       # Blueprint Google Places API
-│   ├── __init__.py
-│   └── routes.py
-└── llm/                 # Blueprint LLM/Ollama
-    ├── __init__.py
-    └── routes.py
-```
-
-## Endpoints disponibles
-
-- `GET /health` - Healthcheck pour Docker
-- `GET /google_places/*` - Endpoints Google Places API
-- `GET /llm/*` - Endpoints LLM/Ollama
-
-## Configuration Gunicorn
-
-Le fichier `gunicorn.conf.py` configure :
-- Nombre de workers basé sur les CPU
-- Timeouts et limites de requêtes
-- Logging et sécurité
-- Performance optimisée
-
-## Monitoring
-
-### Healthcheck
-L'application expose un endpoint `/health` pour vérifier l'état du service.
-
-### Logs
-Les logs sont disponibles via :
+#### Détails d'entreprise
 ```bash
-docker-compose logs prospects-flow-service
+# Obtenir les détails d'Orange
+curl "http://localhost:5000/gov_places/enterprises/380129867"
 ```
 
-## Sécurité
+### Documentation complète
 
-- Utilisateur non-root dans le conteneur
-- Variables d'environnement pour les secrets
-- Configuration Gunicorn sécurisée
-- Headers de sécurité configurés
+Pour une documentation API complète, consultez : [Documentation API](docs/DOCUMENTATION_API.md)
 
-## Performance
-
-- Workers Gunicorn optimisés
-- Préchargement de l'application
-- Configuration des timeouts
-- Gestion des connexions
-
-## Dépannage
-
-### Vérifier l'état du service
-```bash
-curl http://localhost:5000/health
-```
-
-### Voir les logs en temps réel
-```bash
-docker-compose logs -f prospects-flow-service
-```
-
-### Redémarrer le service
-```bash
-docker-compose restart prospects-flow-service
-```
-
-## Variables d'environnement
-
-| Variable | Description | Obligatoire |
-|----------|-------------|-------------|
-| `GOOGLE_PLACE_API_KEY` | Clé API Google Places | Oui |
-| `ENV` | Environnement (dev/prod) | Non |
-| `OLLAMA_URL` | URL du service Ollama | Non |
-
-## Ports
-
-- **5000** : Application Flask
-- **11434** : Ollama (si activé) 
+## Structure du projet

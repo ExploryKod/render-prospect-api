@@ -23,6 +23,6 @@ class Config:
 
     # Configuration pour Ollama
     if os.environ.get('ENV') == 'dev':
-        OLLAMA_URL =  "https://88.222.221.12:11434/api/generate"
+        OLLAMA_URL =  "http://88.222.221.12:11434/api/generate"
     else:
         OLLAMA_URL =  "http://127.0.0.1:11434/api/generate"

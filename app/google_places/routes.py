@@ -35,7 +35,7 @@ def get_places():
         return jsonify({"error": "latitude and longitude must be valid numbers"}), 400
 
     # Get API key from environment variable
-    api_key = os.getenv("GOOGLE_API_KEY")
+    api_key = os.getenv("GOOGLE_PLACE_API_KEY")
     if not api_key:
         return jsonify({"error": "Missing GOOGLE_API_KEY in environment"}), 500
 

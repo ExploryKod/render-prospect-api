@@ -11,7 +11,7 @@ def call_ollama():
     
     JSON payload:
       - prompt (required): The text prompt to send to the LLM
-      - model (optional): The model to use (default: 'mistral:7b-q4')
+      - model (optional): The model to use (default: 'mistral:latest')
       - stream (optional): Whether to stream the response (default: False)
     """
     
@@ -26,11 +26,15 @@ def call_ollama():
         return jsonify({"error": "prompt is required in the JSON payload"}), 400
     
     prompt = data.get('prompt')
-    model = data.get('model', 'mistral:7b-q4')
+    model = data.get('model', 'mistral:latest')
     stream = data.get('stream', False)
     
     if not prompt or not isinstance(prompt, str):
         return jsonify({"error": "prompt must be a non-empty string"}), 400
+    
+    # Debug information
+    print(f"ENV variable: {os.environ.get('ENV', 'not set')}")
+    print(f"Using Ollama URL: {Config.OLLAMA_URL}")
     
     # Prepare payload for Ollama API
     payload = {
@@ -41,7 +45,13 @@ def call_ollama():
     
     try:
         # Call Ollama API
+        print(f"Sending request to: {Config.OLLAMA_URL}")
+        print(f"Payload: {payload}")
+        
         response = requests.post(Config.OLLAMA_URL, json=payload, timeout=120)
+        
+        print(f"Response status: {response.status_code}")
+        print(f"Response headers: {response.headers}")
         
         if response.status_code == 200:
             response_data = response.json()
@@ -52,6 +62,7 @@ def call_ollama():
                 "done": response_data.get("done", True)
             })
         else:
+            print(f"Error response: {response.text}")
             return jsonify({
                 "success": False,
                 "error": f"Ollama API error: {response.text}",
@@ -64,13 +75,15 @@ def call_ollama():
             "error": "Request to Ollama API timed out"
         }), 504
         
-    except requests.exceptions.ConnectionError:
+    except requests.exceptions.ConnectionError as e:
+        print(f"Connection error: {e}")
         return jsonify({
             "success": False,
             "error": "Could not connect to Ollama API. Make sure Ollama is running."
         }), 503
         
     except Exception as e:
+        print(f"Unexpected error: {e}")
         return jsonify({
             "success": False,
             "error": f"Unexpected error: {str(e)}"

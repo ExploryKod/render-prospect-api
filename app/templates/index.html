@@ -1,128 +1,123 @@
 {% extends "base.html" %}
 
-{% block title %}Prospects Flow - Accueil{% endblock %}
+{% block title %}Accueil - Prospects Flow Service{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-lg-10">
-        <!-- Hero Section -->
-        <div class="text-center mb-5">
-            <h1 class="display-4 text-white fw-bold mb-4">
-                Bienvenue sur l'API Prospects Flow
+<div class="row">
+    <div class="col-12">
+        <div class="jumbotron bg-light p-5 rounded">
+            <h1 class="display-4 text-primary">
+                <i class="fas fa-route me-3"></i>
+                Bienvenue sur Prospects Flow Service
             </h1>
-            <p class="lead text-white-50 mb-4">
-                Votre plateforme intelligente pour la gestion des prospects et le développement commercial
+            <p class="lead">
+                Application de création de tournées commerciales intelligentes avec agents IA
             </p>
-            <div class="d-flex justify-content-center gap-3">
-                <a href="/google_places" class="btn btn-primary btn-lg">
-                    <i class="fas fa-map-marker-alt me-2"></i>
-                    Explorer les lieux de vos prochains clients
+            <hr class="my-4">
+            <p>
+                Cette plateforme vous permet de créer et optimiser des tournées commerciales 
+                en utilisant l'intelligence artificielle pour identifier les meilleurs prospects 
+                et optimiser vos déplacements.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <i class="fas fa-map-marker-alt fa-3x text-primary mb-3"></i>
+                <h5 class="card-title">Google Places API</h5>
+                <p class="card-text">
+                    Recherchez et géolocalisez des prospects potentiels 
+                    en utilisant l'API Google Places.
+                </p>
+                <a href="/api-google-docs" class="btn btn-primary">
+                    <i class="fas fa-search me-2"></i>Explorer
                 </a>
-                <a href="/llm" class="btn btn-outline-light btn-lg">
-                    <i class="fas fa-robot me-2"></i>
-                    Services d'agent IA
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center flex flex-col justify-between gap-2">
+                <div class="mt-2">
+                <i class="fas fa-map-marker-alt fa-3x text-primary mb-3"></i>
+                <h5 class="card-title">API publique du gouvernement</h5>
+                <p class="card-text">
+                    Recherchez des informations sur des prospects potentiels
+                    en utilisant l'API du gouvernement français.
+                </p>
+                </div>
+                <a href="/api-gov-docs" class="btn btn-warning">
+                    <i class="fas fa-search me-2"></i>Explorer
                 </a>
             </div>
         </div>
-
-        <!-- Features Section -->
-        <div class="row g-4 mb-5">
-            <div class="col-md-4">
-                <div class="card h-100 text-center p-4">
-                    <div class="feature-icon">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <h4>Recherche intelligente</h4>
-                    <p class="text-muted">
-                        Trouvez et analysez les lieux de vos prochains clients avec notre intégration Google Places ou de l'API du gouvernement, au choix !.
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 text-center p-4">
-                    <div class="feature-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <h4>AI-Powered Insights</h4>
-                    <p class="text-muted">
-                        Obtenez des compte-rendu détaillées, des informations précieuses sur les prospects choisies en vous connectants à nos routes API à la demande.
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 text-center p-4">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h4>Growth Analytics (à venir) - Exclusif : bientôt disponible !</h4>
-                    <p class="text-muted">
-                        Suivez vos prospects et mesurez leur croissance avec des analyses détaillées (à venir).
-                    </p>
-                </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <i class="fas fa-robot fa-3x text-success mb-3"></i>
+                <h5 class="card-title">Intelligence Artificielle</h5>
+                <p class="card-text">
+                    Utilisez nos modèles LLM pour analyser et qualifier 
+                    vos prospects automatiquement et enrichir vos tournées avec de l'information issu des meilleurs LLM.
+                </p>
+                <a href="/llm" class="btn btn-success">
+                    <i class="fas fa-brain me-2"></i>Découvrir
+                </a>
             </div>
         </div>
+    </div>
+</div>
 
-        <!-- Quick Actions -->
-        <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <div class="card">
-                    <div class="card-header bg-primary text-white">
-                        <h5 class="mb-0">
-                            <i class="fas fa-bolt me-2"></i>
-                            Documentation et exemples d'utilisation
-                        </h5>
+<div class="row mt-5">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Informations du Service
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Statut du Service</h6>
+                        <p class="text-success">
+                            <i class="fas fa-check-circle me-2"></i>
+                            Service opérationnel
+                        </p>
                     </div>
-                    <div class="card-body">
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <a href="/google_places/search" class="btn btn-outline-primary w-100">
-                                    <i class="fas fa-search me-2"></i>
-                                    Recherche de lieux
-                                </a>
-                            </div>
-                            <div class="col-md-6">
-                                <a href="/llm/analyze" class="btn btn-outline-success w-100">
-                                    <i class="fas fa-robot me-2"></i>
-                                    Lieux : enrichir l'information
-                                </a>
-                            </div>
-                        </div>
+                    <div class="col-md-6">
+                        <h6>Version</h6>
+                        <p>1.0.0</p>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Status Section -->
-        <div class="row mt-4">
-            <div class="col-lg-8 mx-auto">
-                <div class="card">
-                    <div class="card-header bg-info text-white">
-                        <h5 class="mb-0">
-                            <i class="fas fa-info-circle me-2"></i>
-                            Statut du système
-                        </h5>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <h6>API Endpoints</h6>
+                        <ul class="list-unstyled">
+                            <li><code>/health</code> - Vérification de santé</li>
+                            <li><code>/google_places</code> - API Google Places</li>
+                            <li><code>/gov_places</code> - API Entreprises Françaises</li>
+                            <li><code>/llm</code> - Services LLM</li>
+                            <li><code>/api-docs</code> - Documentation API</li>
+                        </ul>
                     </div>
-                    <div class="card-body">
-                        <div class="row text-center">
-                            <div class="col-md-4">
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <i class="fas fa-check-circle text-success me-2"></i>
-                                    <span>API Status: Healthy</span>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <i class="fas fa-check-circle text-success me-2"></i>
-                                    <span>LLM Service: Active</span>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <i class="fas fa-check-circle text-success me-2"></i>
-                                    <span>Recherche de lieux: Active</span>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-md-6">
+                        <h6>Technologies</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="fab fa-python me-2"></i>Flask</li>
+                            <li><i class="fas fa-database me-2"></i>Jinja2 Templates</li>
+                            <li><i class="fas fa-cloud me-2"></i>Google Places API</li>
+                            <li><i class="fas fa-robot me-2"></i>LLM Integration</li>
+                            <li><i class="fas fa-building me-2"></i>API Gouvernement Français</li>
+                        </ul>
                     </div>
                 </div>
             </div>
