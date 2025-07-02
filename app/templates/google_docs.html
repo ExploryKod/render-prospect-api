@@ -4,55 +4,71 @@
 
 {% block content %}
 <div class="row">
-    <div class="row">
-        <div class="col-12">
-            <div class="api-endpoint" id="google-places">
-                <span class="method-get">GET</span>
-                <strong>/google_places/search</strong>
-                <p>Recherche de lieux via l'API Google Places.</p>
+    <div class="col-12">
+        <!-- Swagger Documentation Link -->
+        <div class="alert alert-info mb-4">
+            <h5><i class="fas fa-book me-2"></i>Documentation Interactive Swagger</h5>
+            <p class="mb-2">Accédez à la documentation interactive Swagger pour tester l'API en temps réel :</p>
+            <a href="/google_places/swagger-docs/" class="btn btn-primary" target="_blank">
+                <i class="fas fa-external-link-alt me-1"></i>
+                Ouvrir la Documentation Swagger
+            </a>
+        </div>
 
-                <table class="table table-bordered parameter-table">
-                    <thead>
-                        <tr>
-                            <th>Paramètre</th>
-                            <th>Type</th>
-                            <th>Requis</th>
-                            <th>Description</th>
-                            <th>Exemple</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>query</td><td>string</td><td>Oui</td><td>Terme de recherche</td><td>restaurant</td></tr>
-                        <tr><td>location</td><td>string</td><td>Non</td><td>Coordonnées lat,lng</td><td>48.8566,2.3522</td></tr>
-                        <tr><td>radius</td><td>int</td><td>Non</td><td>Rayon en mètres</td><td>2000</td></tr>
-                        <tr><td>type</td><td>string</td><td>Non</td><td>Type de lieu</td><td>restaurant</td></tr>
-                    </tbody>
-                </table>
+        <div class="api-endpoint" id="google-places">
+            <span class="method-get">GET</span>
+            <strong>/google_places/places</strong>
+            <p>Recherche de lieux via l'API Google Places.</p>
 
-                <div class="code-block">
-                    <pre>
+            <table class="table table-bordered parameter-table">
+                <thead>
+                    <tr>
+                        <th>Paramètre</th>
+                        <th>Type</th>
+                        <th>Requis</th>
+                        <th>Description</th>
+                        <th>Exemple</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>latitude</td><td>float</td><td>Oui</td><td>Latitude du point central</td><td>48.8566</td></tr>
+                    <tr><td>longitude</td><td>float</td><td>Oui</td><td>Longitude du point central</td><td>2.3522</td></tr>
+                    <tr><td>type</td><td>string</td><td>Non</td><td>Type de lieu (défaut: restaurant)</td><td>restaurant</td></tr>
+                    <tr><td>maxResults</td><td>int</td><td>Non</td><td>Nombre max de résultats (défaut: 20)</td><td>10</td></tr>
+                    <tr><td>radius</td><td>float</td><td>Non</td><td>Rayon en mètres (défaut: 1000.0)</td><td>2000.0</td></tr>
+                </tbody>
+            </table>
+
+            <div class="code-block">
+                <pre>
 Exemple :
 GET /google_places/places?latitude=48.8566&longitude=2.3522&type=restaurant&maxResults=10&radius=2000
+
 Réponse 200 :
 {
-  "status": "OK",
-  "results": [
+  "success": true,
+  "count": 1,
+  "places": [
     {
-      "place_id": "ChIJN1t_tDeuEmsRUsoyG83frY4",
       "name": "Le Petit Bistrot",
-      "formatted_address": "15 Rue de Rivoli, 75001 Paris, France",
-      "geometry": {
-        "location": {
-          "lat": 48.8566,
-          "lng": 2.3522
-        }
-      },
-      "types": ["restaurant", "food", "establishment"]
+      "address": "15 Rue de Rivoli, 75001 Paris, France",
+      "phone": "+33 1 42 97 48 16",
+      "email": null,
+      "type": "restaurant",
+      "geo": {
+        "latitude": 48.8566,
+        "longitude": 2.3522
+      }
     }
-  ]
+  ],
+  "searchParams": {
+    "latitude": 48.8566,
+    "longitude": 2.3522,
+    "type": "restaurant",
+    "radius": 2000.0
+  }
 }
-                    </pre>
-                </div>
+                </pre>
             </div>
         </div>
     </div>

@@ -1,0 +1,122 @@
+{
+    "success": true,
+    "count": 10,
+    "places": [
+        {
+            "name": "Bouillon Chartier Grands Boulevards",
+            "address": "7 Rue du Faubourg Montmartre, 75009 Paris, France",
+            "phone": "01 47 70 86 29",
+            "email": null,
+            "type": "restaurant",
+            "geo": {
+                "latitude": 48.871933299999995,
+                "longitude": 2.3430535
+            }
+        },
+        {
+            "name": "UGC Cine Cite les Halles",
+            "address": "7 place De La Rotonde, 75001 Paris, France",
+            "phone": "0 826 88 07 00",
+            "email": null,
+            "type": "restaurant",
+            "geo": {
+                "latitude": 48.8627791,
+                "longitude": 2.3428139
+            }
+        },
+        {
+            "name": "Bouillon R\u00e9publique",
+            "address": "39 Bd du Temple, 75003 Paris, France",
+            "phone": "01 42 59 69 31",
+            "email": null,
+            "type": "restaurant",
+            "geo": {
+                "latitude": 48.8660129,
+                "longitude": 2.3647516
+            }
+        },
+        {
+            "name": "Angelina",
+            "address": "226 Rue de Rivoli, 75001 Paris, France",
+            "phone": "01 42 60 82 00",
+            "email": null,
+            "type": "restaurant",
+            "geo": {
+                "latitude": 48.8650898,
+                "longitude": 2.3284434
+            }
+        },
+        {
+            "name": "Chez Janou",
+            "address": "2 Rue Roger Verlomme, 75003 Paris, France",
+            "phone": "01 42 72 28 41",
+            "email": null,
+            "type": "restaurant",
+            "geo": {
+                "latitude": 48.8567159,
+                "longitude": 2.3671983
+            }
+        },
+        {
+            "name": "Relais de l'Entrec\u00f4te",
+            "address": "20 Rue Saint-Beno\u00eet, 75006 Paris, France",
+            "phone": "01 45 49 16 00",
+            "email": null,
+            "type": "restaurant",
+            "geo": {
+                "latitude": 48.854620999999995,
+                "longitude": 2.3328647
+            }
+        },
+        {
+            "name": "Arab World Institute",
+            "address": "1 Rue des Foss\u00e9s Saint-Bernard, 75005 Paris, France",
+            "phone": "01 40 51 38 38",
+            "email": null,
+            "type": "restaurant",
+            "geo": {
+                "latitude": 48.848925699999995,
+                "longitude": 2.3572313
+            }
+        },
+        {
+            "name": "Les Deux Magots",
+            "address": "6 Pl. Saint-Germain des Pr\u00e9s, 75006 Paris, France",
+            "phone": "01 45 48 55 25",
+            "email": null,
+            "type": "restaurant",
+            "geo": {
+                "latitude": 48.854051999999996,
+                "longitude": 2.3331062
+            }
+        },
+        {
+            "name": "Kodawari Ramen (Yokoch\u014d)",
+            "address": "29 Rue Mazarine, 75006 Paris, France",
+            "phone": "01 43 29 37 67",
+            "email": null,
+            "type": "restaurant",
+            "geo": {
+                "latitude": 48.854633899999996,
+                "longitude": 2.3381035999999997
+            }
+        },
+        {
+            "name": "Galerie Vivienne",
+            "address": "4 Rue des Petits Champs, 75002 Paris, France",
+            "phone": null,
+            "email": null,
+            "type": "restaurant",
+            "geo": {
+                "latitude": 48.8663533,
+                "longitude": 2.3394854
+            }
+        }
+    ],
+    "searchParams": {
+        "latitude": 48.8566,
+        "longitude": 2.3522,
+        "type": "restaurant",
+        "radius": 2000.0
+    }
+}

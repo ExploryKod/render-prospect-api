@@ -52,6 +52,9 @@ pip install -r requirements.txt
 4. **Configurer les variables d'environnement**
 ```bash
 # Créer un fichier .env
+GOOGLE_PLACE_API_KEY=google-places-api-key (voir avec Amaury)
+ENV=production
+OLLAMA_URL=http://127.0.0.1:11434/api/generate
 FLASK_PORT=5000
 FLASK_HOST=0.0.0.0
 FLASK_DEBUG=True
@@ -64,11 +67,9 @@ FLASK_DEBUG=True
 ./venv/bin/python run.py
 
 # Port personnalisé
-./venv/bin/python run.py --port 8080
+./venv/bin/python run.py --port 5008
 
-# Avec variables d'environnement
-FLASK_PORT=9000 ./venv/bin/python run.py
-```
+Aller sur la racine de l'app `http://localhost:<mon-port>` pour avoir une page d'accueil qui des rédirection vers des docs en page web. Sinon il y a aussi des readme et bientôt swagger pour la précision.
 
 ## API Documentation
 
@@ -84,31 +85,14 @@ FLASK_PORT=9000 ./venv/bin/python run.py
 | `/google_places/search` | GET | Recherche de lieux avec Google Places |
 | `/llm/health` | GET | Santé du service LLM |
 
-### Exemples d'utilisation
-
-#### Recherche d'entreprises
-```bash
-# Recherche de restaurants à Paris
-curl "http://localhost:5000/gov_places/enterprises/search?q=restaurant&code_postal=75001&effectif_min=10"
-
-# Recherche d'entreprises technologiques
-curl "http://localhost:5000/gov_places/enterprises/search?q=informatique&code_naf=62.01Z"
-```
-
-#### Recherche géographique
-```bash
-# Recherche autour de la Tour Eiffel
-curl "http://localhost:5000/gov_places/enterprises/geographic?lat=48.8584&lon=2.2945&radius=2000"
-```
-
-#### Détails d'entreprise
-```bash
-# Obtenir les détails d'Orange
-curl "http://localhost:5000/gov_places/enterprises/380129867"
-```
-
 ### Documentation complète
 
 Pour une documentation API complète, consultez : [Documentation API](docs/DOCUMENTATION_API.md)
 
 ## Structure du projet
+
+Nous organisons avec des blueprints pour rendre le projet évolutif.
+- Il pourra se doter d'une base de donnée
+- Il peut intégrer facilement de nouveaux service isolés avec leurs propres routes API
+
+A ce stade nous ne sommes pas encore RESTFUL car il nous manque un nombre consistant de demande pour que cela commence à avoir un intérêt. Pour autant nous y travaillons, notamment sur les routes de l'api du gouvernement qui sont nombreuses.

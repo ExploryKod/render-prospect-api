@@ -34,6 +34,51 @@ Vérifier le statut de santé du service.
 - `200` - Service en bonne santé
 
 ---
+### Intégration Google Places
+
+#### GET `/google_places/search`
+
+Rechercher des lieux en utilisant l'API Google Places.
+
+**Paramètres de requête :**
+
+| Paramètre | Type | Requis | Description | Exemple |
+|-----------|------|--------|-------------|---------|
+| `query` | string | Oui | Terme de recherche | `"restaurant"` |
+| `location` | string | Non | Localisation (lat,lng) | `"48.8566,2.3522"` |
+| `radius` | integer | Non | Rayon de recherche en mètres | `5000` |
+| `type` | string | Non | Type de lieu | `"restaurant"` |
+
+**Exemple de requête :**
+```bash
+curl "http://localhost:5000/google_places/search?query=restaurant&location=48.8566,2.3522&radius=5000"
+```
+
+**Exemple de réponse :**
+```json
+{
+  "status": "OK",
+  "results": [
+    {
+      "place_id": "ChIJN1t_tDeuEmsRUsoyG83frY4",
+      "name": "Le Petit Bistrot",
+      "formatted_address": "15 Rue de Rivoli, 75001 Paris, France",
+      "geometry": {
+        "location": {
+          "lat": 48.8566,
+          "lng": 2.3522
+        }
+      },
+      "types": ["restaurant", "food", "establishment"]
+    }
+  ]
+}
+```
+
+**Codes de statut :**
+- `200` - Succès
+- `400` - Requête incorrecte
+- `500` - Erreur interne du serveur
 
 ### Recherche d'entreprises françaises
 
@@ -192,51 +237,7 @@ curl "http://localhost:5000/gov_places/enterprises/geographic?lat=48.8566&lon=2.
 
 ---
 
-### Intégration Google Places
 
-#### GET `/google_places/search`
-
-Rechercher des lieux en utilisant l'API Google Places.
-
-**Paramètres de requête :**
-
-| Paramètre | Type | Requis | Description | Exemple |
-|-----------|------|--------|-------------|---------|
-| `query` | string | Oui | Terme de recherche | `"restaurant"` |
-| `location` | string | Non | Localisation (lat,lng) | `"48.8566,2.3522"` |
-| `radius` | integer | Non | Rayon de recherche en mètres | `5000` |
-| `type` | string | Non | Type de lieu | `"restaurant"` |
-
-**Exemple de requête :**
-```bash
-curl "http://localhost:5000/google_places/search?query=restaurant&location=48.8566,2.3522&radius=5000"
-```
-
-**Exemple de réponse :**
-```json
-{
-  "status": "OK",
-  "results": [
-    {
-      "place_id": "ChIJN1t_tDeuEmsRUsoyG83frY4",
-      "name": "Le Petit Bistrot",
-      "formatted_address": "15 Rue de Rivoli, 75001 Paris, France",
-      "geometry": {
-        "location": {
-          "lat": 48.8566,
-          "lng": 2.3522
-        }
-      },
-      "types": ["restaurant", "food", "establishment"]
-    }
-  ]
-}
-```
-
-**Codes de statut :**
-- `200` - Succès
-- `400` - Requête incorrecte
-- `500` - Erreur interne du serveur
 
 ---
 

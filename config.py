@@ -1,4 +1,8 @@
 import os
+import warnings
+
+# Supprimer les warnings de dépréciation
+warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -26,3 +30,9 @@ class Config:
         OLLAMA_URL =  "http://88.222.221.12:11434/api/generate"
     else:
         OLLAMA_URL =  "http://127.0.0.1:11434/api/generate"
+    
+    # Configuration Swagger
+    SWAGGER_UI_DOC_EXPANSION = 'list'
+    RESTX_VALIDATE = True
+    RESTX_MASK_SWAGGER = False
+    RESTX_ERROR_404_HELP = False

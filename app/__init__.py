@@ -15,11 +15,10 @@ def create_app(config_class=Config):
     def api_gov_docs():
         return render_template('api_gov_docs.html')
     
-        # API Documentation route
+    # API Documentation route
     @app.route('/api-google-docs')
     def api_google_docs():
         return render_template('google_docs.html')
-    
     
     # Endpoint de santé pour Docker healthcheck
     @app.route('/health')
