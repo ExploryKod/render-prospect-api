@@ -1,9 +1,14 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 from config import Config
 
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
+    
+    # Root route - render the main page
+    @app.route('/')
+    def index():
+        return render_template('index.html')
     
     # Endpoint de santé pour Docker healthcheck
     @app.route('/health')
