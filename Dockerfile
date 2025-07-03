@@ -41,3 +41,9 @@ RUN chmod +x start.sh
 
 # Commande de démarrage
 CMD ["./start.sh"]
+
+# Labels pour GitLab
+LABEL maintainer="prospects-flow-team"
+LABEL version="1.0"
+LABEL description="Prospects Flow Service - API pour la gestion des prospects et tournées commerciales"
+LABEL org.opencontainers.image.source="https://gitlab.com/votre-groupe/prospects-flow-service"

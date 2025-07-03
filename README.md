@@ -49,6 +49,11 @@ venv\Scripts\activate  # Windows
 pip install -r requirements.txt
 ```
 
+ou pour rester isolé de sa machine en utilisant le python du venv (linux, windows ?): 
+```sh
+./venv/bin/python -m pip install -r requirements.txt
+```
+
 4. **Configurer les variables d'environnement**
 ```bash
 # Créer un fichier .env

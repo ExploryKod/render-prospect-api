@@ -1,28 +1,10 @@
 from flask import Flask, jsonify, render_template
-from config import Config
 from flask_cors import CORS
+from config import Config
 
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
-    
-    #  # Enable CORS for all routes
-    # CORS(app, resources={
-    #     r"/*": {
-    #         "origins": [
-    #             "http://localhost:5173",  # Your React dev server
-    #             "http://localhost:3000",  # Alternative React port
-    #             "http://127.0.0.1:5173",
-    #             "http://127.0.0.1:3000",
-    #             "*",
-    #             "http://127.0.0.1:8080",
-    #             # Add your production frontend URL here when deployed
-    #             # "https://your-frontend-domain.com"
-    #         ],
-    #         "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    #         "allow_headers": ["Content-Type", "Authorization", "X-Requested-With"]
-    #     }
-    # })
     
     CORS(app, resources={r"/*": {"origins": "*"}})
     
